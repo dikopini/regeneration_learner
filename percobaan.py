@@ -2,10 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-total_page = 5
-
-for page in range(total_page):
-    page +=1
+def coba(page):
     url = (f'https://www.loker.id/cari-lowongan-kerja/page/{page}?')
 
     params = {
@@ -26,9 +23,8 @@ for page in range(total_page):
     table = contents.find_all('table', 'table')
     job_list = []
     for i in table:
-
         job = all_loker[a].find('a').text
-        a = a+1
+        a = a + 1
 
         items = i.findAll('tr')
 
@@ -54,6 +50,21 @@ for page in range(total_page):
             'lokasi': lokasi
         }
         job_list.append(data_dict)
+    return job_list
+        #print(data_dict)
 
-    print(page)
-    print(job_list)
+
+def run():
+    total_page = 5
+    counter = 0
+    final_result = []
+
+    for i in range(total_page):
+        counter +=1
+        final_result += coba(counter)
+        print(counter)
+        print(final_result)
+
+
+if __name__ == '__main__':
+    run()
